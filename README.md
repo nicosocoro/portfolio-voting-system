@@ -17,7 +17,7 @@ The Voting System allows users to create votes with multiple options, share a pu
    - Node.js + TypeScript REST API.
    - PostgreSQL database for persistence.
 
-- Monitoring
+- CI/CD
    - TODO: Define
 
 ## MVP Features
@@ -34,3 +34,14 @@ The Voting System allows users to create votes with multiple options, share a pu
    - Display current results after voting.
    - No real-time updates — results are refreshed only when reloading the page.
 
+## Next features
+
+- Authentication
+   - Add user sign-up and sign-in
+   - Vote configuration can define whether to require authenticated users or not.
+- Real-time updates
+- Export results
+- Monitoring and repoting
+   - Health
+   - Product/stakeholders data
+   - TODO: Define metrics
