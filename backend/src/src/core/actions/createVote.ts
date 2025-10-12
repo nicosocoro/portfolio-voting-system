@@ -1,5 +1,7 @@
 import { VoteTitleMustHaveAtLeastFiveCharactersException, VoteEndDateInPastException, VoteMustHaveAtLeastTwoOptionsException } from "../domain/exceptions/vote.exceptions";
+import { Id } from "../domain/models/id";
 import { Vote } from "../domain/models/vote";
+import { VoteOption } from "../domain/models/voteOption";
 import { Clock } from "../domain/services/clock";
 import { IdGenerator } from "../domain/services/idGenerator";
 
@@ -16,7 +18,13 @@ export class CreateVote {
         this.validate(params);
 
         const id = await this.idGenerator.generate();
-        const vote = new Vote(id, params.title, params.options, this.clock.now(), params.endDate);
+
+        const voteOptions = params.options.map((option, index) => {
+            const order = index + 1;
+            return new VoteOption(new Id(order.toString()), option, order);
+        });
+
+        const vote = new Vote(id, params.title, voteOptions, this.clock.now(), params.endDate);
         return vote;
     }
 

@@ -1,7 +1,8 @@
 import { Id } from "./id";
+import { VoteOption } from "./voteOption";
 
 export class Vote {
-    constructor(id: Id, title: string, options: string[], creationDate: Date, endDate: Date) {
+    constructor(id: Id, title: string, options: VoteOption[], creationDate: Date, endDate: Date) {
         this.id = id;
         this.title = title;
         this.options = options;
@@ -11,7 +12,8 @@ export class Vote {
 
     id: Id;
     title: string;
-    options: string[];
+    options: VoteOption[];
     creationDate: Date;
     endDate: Date;
 }
+
