@@ -1,8 +1,8 @@
 import { CreateVote, CreateVoteParams } from "../../../core/actions/createVote";
 import { VoteTitleMustHaveAtLeastFiveCharactersException, VoteEndDateInPastException, VoteMustHaveAtLeastTwoOptionsException } from "../../../core/domain/exceptions/vote.exceptions";
 import { Id } from "../../../core/domain/models/id";
-import { Vote } from "../../../core/domain/models/vote";
-import { VoteOption } from "../../../core/domain/models/voteOption";
+import { Vote } from "../../../core/domain/models/vote/vote";
+import { VoteOption } from "../../../core/domain/models/vote/voteOption";
 import { Clock } from "../../../core/domain/services/clock";
 import { IdGenerator } from "../../../core/domain/services/idGenerator";
 
@@ -84,9 +84,7 @@ describe("CreateVote should", () => {
         expect(vote!.title).toBe("Test Title");
         expect(vote!.endDate).toEqual(tomorrow);
         expect(idGeneratorMock.generate).toHaveBeenCalledTimes(1);
-
-        
-        expect(vote!.options).toEqual([new VoteOption(new Id("1"), "Option 1", 1), new VoteOption(new Id("2"), "Option 2", 2)]);
+        expect(vote!.options).toEqual([new VoteOption(new Id("0"), "Option 1", 0), new VoteOption(new Id("1"), "Option 2", 1)]);
     }
 });
 

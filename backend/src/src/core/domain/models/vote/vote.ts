@@ -1,4 +1,4 @@
-import { Id } from "./id";
+import { Id } from "../id";
 import { VoteOption } from "./voteOption";
 
 export class Vote {
