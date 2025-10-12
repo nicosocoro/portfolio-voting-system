@@ -1,4 +1,5 @@
 import { CreateVote, CreateVoteParams } from "../../core/actions/createVote";
+import { VoteOption } from "../../core/domain/models/vote/voteOption";
 import { CreateVoteSchema } from "../schemas/vote.schemas";
 import { Static } from "@sinclair/typebox";
 import { FastifyRequest, FastifyReply } from "fastify";
@@ -29,8 +30,16 @@ export class VoteController {
         reply.code(201).send({
             id: vote.id.getId(),
             title: vote.title,
-            options: vote.options,
+            options: this.mapOptionsToJson(vote.options),
             endDate: vote.endDate.getTime(),
         });
+    }
+
+    private mapOptionsToJson(options: VoteOption[]) {
+        return options.map(option => ({
+            id: option.id.getId(),
+            description: option.description,
+            order: option.order,
+        }));
     }
 }
