@@ -1,7 +1,8 @@
 import { CreateVote } from "../actions/createVote";
+import { ServicesFactory } from "./services.factory";
 
 export class ActionsFactory {
     static createVote(): CreateVote {
-        return new CreateVote();
+        return new CreateVote(ServicesFactory.createIdGenerator(), ServicesFactory.createClock());
     }
 }
