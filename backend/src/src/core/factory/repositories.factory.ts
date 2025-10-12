@@ -2,7 +2,12 @@ import { InMemoryVotesRepository } from "../../infrastructure/repositories/vote/
 import { VotesRepository } from "../domain/repositories/vote/votesRepository";
 
 export class RepositoriesFactory {
-    static createVotesRepository(): VotesRepository {
-        return new InMemoryVotesRepository();
+    private static votesRepository: VotesRepository | null = null;
+
+    static getVotesRepository(): VotesRepository {
+        if (!this.votesRepository) {
+            this.votesRepository = new InMemoryVotesRepository();
+        }
+        return this.votesRepository;
     }
 }
