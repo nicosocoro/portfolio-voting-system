@@ -3,12 +3,14 @@ import { VoteTitleMustHaveAtLeastFiveCharactersException, VoteEndDateInPastExcep
 import { Id } from "../../../core/domain/models/id";
 import { Vote } from "../../../core/domain/models/vote/vote";
 import { VoteOption } from "../../../core/domain/models/vote/voteOption";
+import { VotesRepository } from "../../../core/domain/repositories/vote/votesRepository";
 import { Clock } from "../../../core/domain/services/clock";
 import { IdGenerator } from "../../../core/domain/services/idGenerator";
 
 describe("CreateVote should", () => {
     let idGeneratorMock: jest.Mocked<IdGenerator>;
     let clockMock: jest.Mocked<Clock>;  
+    let votesRepositoryMock: jest.Mocked<VotesRepository>;
     let createVote: CreateVote;
     let vote: Vote | null = null;
 
@@ -25,8 +27,10 @@ describe("CreateVote should", () => {
         clockMock = {
             now: jest.fn().mockReturnValue(now)
         };
-        
-        createVote = new CreateVote(idGeneratorMock, clockMock);
+        votesRepositoryMock = {
+            add: jest.fn()
+        };
+        createVote = new CreateVote(idGeneratorMock, clockMock, votesRepositoryMock);
 
         vote = null;
     });
@@ -34,6 +38,11 @@ describe("CreateVote should", () => {
     it("create a Vote with correct parameters", async () => {
         await whenCreatingVote();
         thenVoteIsCreated();
+    });
+
+    it("persist Vote with correct parameters", async () => {
+        await whenCreatingVote();
+        expect(votesRepositoryMock.add).toHaveBeenCalledWith(vote!);
     });
 
     it("propagate errors from idGenerator.generate", async () => {
