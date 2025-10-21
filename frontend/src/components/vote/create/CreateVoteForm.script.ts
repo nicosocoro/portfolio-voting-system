@@ -13,11 +13,17 @@ export default function useCreateVoteForm() {
     endDate: ''
   });
 
-  const today = new Date().toISOString().split('T')[0]!; // Ensure 'today' is always defined
+  const today = ref<string>((new Date().toISOString().split('T')[0] as string)); // Explicitly cast to string
 
   const addOption = () => {
     form.value.options.push('');
   };
+
+  const removeOption = (index: number) => {
+  if (form.value.options.length > 2) {
+    form.value.options.splice(index, 1);
+  }
+};
 
   const handleSubmit = () => {
     // Reset errors
@@ -35,7 +41,7 @@ export default function useCreateVoteForm() {
     }
 
     // Validate end date
-    if (form.value.endDate < today) {
+    if (form.value.endDate < today.value) {
       errors.value.endDate = 'End date cannot be before today.';
     }
 
@@ -50,6 +56,7 @@ export default function useCreateVoteForm() {
     errors,
     today,
     addOption,
+    removeOption,
     handleSubmit
   };
 }

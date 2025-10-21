@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useCreateVoteForm from './CreateVoteForm.script.ts';
 
-const { form, errors, today, addOption, handleSubmit } = useCreateVoteForm();
+const { form, errors, today, addOption, removeOption, handleSubmit } = useCreateVoteForm();
 
 </script>
 
@@ -25,6 +25,14 @@ const { form, errors, today, addOption, handleSubmit } = useCreateVoteForm();
         <label>Options</label>
         <div v-for="(option, index) in form.options" :key="index" class="option-row">
           <input v-model="form.options[index]" type="text" placeholder="Enter option" required />
+          <button
+            v-if="form.options.length > 2"
+            type="button"
+            @click="removeOption(index)"
+            class="remove-button"
+          >
+            Remove
+          </button>
         </div>
         <button type="button" @click="addOption">+ Add Option</button>
         <span v-if="errors.options" class="error">{{ errors.options }}</span>
