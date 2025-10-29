@@ -27,7 +27,7 @@ export default function useCreateVoteForm() {
   }
 };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Reset errors
     errors.value = { title: '', options: '', endDate: '' };
 
@@ -50,7 +50,8 @@ export default function useCreateVoteForm() {
     // If no errors, show a toast (placeholder for now)
     const noErrors = !errors.value.title && !errors.value.options && !errors.value.endDate;
     if (noErrors) {
-      voteService.send(new CreateVoteData(form.value.title, form.value.options, new Date(form.value.endDate)));
+      const vote = await voteService.createVote(new CreateVoteData(form.value.title, form.value.options, new Date(form.value.endDate)));
+      console.log('Vote created successfully:', vote);
     }
   };
 
