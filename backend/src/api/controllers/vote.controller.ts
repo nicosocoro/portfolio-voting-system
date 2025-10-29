@@ -52,7 +52,7 @@ export class VoteController {
             id: vote.id.getId(),
             title: vote.title,
             options: this.optionsToJson(vote.options),
-            endDate: vote.endDate.getTime(),
+            endDateInMillis: vote.endDate.getTime(),
         };
     }
 
