@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CreateVoteForm from './components/vote/create/CreateVoteForm.vue';
 </script>
 
 <template>
@@ -11,7 +10,7 @@ import CreateVoteForm from './components/vote/create/CreateVoteForm.vue';
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
-  <CreateVoteForm/>
+    <router-view />
 </template>
 
 <style scoped>

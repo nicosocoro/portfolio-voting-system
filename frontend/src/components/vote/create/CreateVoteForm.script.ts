@@ -1,11 +1,12 @@
 import { ref } from 'vue';
 import { voteService } from '../../../services/vote/vote.service';
 import { CreateVoteData } from '../../../models/vote/createVote.data';
+import { VoteRouter } from '../../../router/vote.router';
 
 export default function useCreateVoteForm() {
   const form = ref({
     title: '',
-    options: ['', ''], // Initialize with two empty options
+    options: ['', ''],
     endDate: ''
   });
 
@@ -22,10 +23,10 @@ export default function useCreateVoteForm() {
   };
 
   const removeOption = (index: number) => {
-  if (form.value.options.length > 2) {
-    form.value.options.splice(index, 1);
-  }
-};
+    if (form.value.options.length > 2) {
+      form.value.options.splice(index, 1);
+    }
+  };
 
   const handleSubmit = async () => {
     // Reset errors
@@ -49,10 +50,14 @@ export default function useCreateVoteForm() {
 
     // If no errors, show a toast (placeholder for now)
     const noErrors = !errors.value.title && !errors.value.options && !errors.value.endDate;
-    if (noErrors) {
-      const vote = await voteService.createVote(new CreateVoteData(form.value.title, form.value.options, new Date(form.value.endDate)));
-      console.log('Vote created successfully:', vote);
+    if (!noErrors) {
+      alert('Please fix the errors in the form before submitting.');
+      return;
     }
+
+    const vote = await voteService.createVote(new CreateVoteData(form.value.title, form.value.options, new Date(form.value.endDate)));
+    console.log('Vote created successfully:', vote);
+    VoteRouter.pushVoteDetails(vote.id);
   };
 
   return {
