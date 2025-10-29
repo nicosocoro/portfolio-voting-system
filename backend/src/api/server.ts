@@ -1,13 +1,17 @@
 import Fastify from 'fastify';
 import votesRoutes from './routes/vote.routes';
+import cors from '@fastify/cors';
 
 async function buildFastify() {
   const fastify = Fastify({ logger: true });
+
+  await fastify.register(cors, {
+    origin: ['http://127.0.0.1:5173'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  });
+
   await fastify.register(votesRoutes);
 
-  fastify.get('/dummy', async (request, reply) => {
-    return { message: 'Hello from dummy endpoint!' };
-  });
   return fastify;
 }
 
