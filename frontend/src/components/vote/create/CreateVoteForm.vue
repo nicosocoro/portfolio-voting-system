@@ -25,7 +25,7 @@ const { form, errors, today, addOption, removeOption, handleSubmit } = useCreate
         <label>Options</label>
         <div v-for="(option, index) in form.options" :key="index" class="option-row">
           <input v-model="form.options[index]" type="text" placeholder="Enter option" required />
-          <button
+          <button 
             v-if="form.options.length > 2"
             type="button"
             @click="removeOption(index)"

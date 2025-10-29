@@ -13,7 +13,7 @@ header {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  width: 90%;
 }
 
 label {
@@ -22,11 +22,37 @@ label {
 }
 
 input {
-  width: 100%;
+  /* width: 100%; */
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="date"] {
+  display: flex;
+  width: 100%;
+}
+
+/* .option-row {
+  position: relative;
+} */
+
+/* .option-row input[type="text"] {
+  width: 100%;
+  padding-right: 2rem; /* Make space for the remove button }*/
+
+.option-row .remove-button {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 button {
@@ -57,9 +83,4 @@ button[type="button"]:hover {
 .error {
   color: red;
   font-size: 0.875rem;
-}
-
-.option-row {
-  display: flex;
-  gap: 0.5rem;
 }

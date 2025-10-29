@@ -1,4 +1,6 @@
 import { ref } from 'vue';
+import { voteService } from '../../../services/vote/vote.service';
+import { CreateVoteData } from '../../../models/vote/createVote.data';
 
 export default function useCreateVoteForm() {
   const form = ref({
@@ -13,7 +15,7 @@ export default function useCreateVoteForm() {
     endDate: ''
   });
 
-  const today = ref<string>((new Date().toISOString().split('T')[0] as string)); // Explicitly cast to string
+  const today = ref<string>((new Date().toISOString().split('T')[0] as string));
 
   const addOption = () => {
     form.value.options.push('');
@@ -46,8 +48,9 @@ export default function useCreateVoteForm() {
     }
 
     // If no errors, show a toast (placeholder for now)
-    if (!errors.value.title && !errors.value.options && !errors.value.endDate) {
-      alert('Vote created successfully!');
+    const noErrors = !errors.value.title && !errors.value.options && !errors.value.endDate;
+    if (noErrors) {
+      voteService.send(new CreateVoteData(form.value.title, form.value.options, new Date(form.value.endDate)));
     }
   };
 
