@@ -8,15 +8,25 @@ export default function useGetVoteDetails() {
 
   const vote: Ref<Vote | null> = ref(null);
   const isLoading = ref(true);
+  const isVoting = ref(false);
   
   const findVote = async () => {
     vote.value = await voteService.findVote(voteId.value);
     isLoading.value = false;
   };
 
+  const castVote = async (optionId: string) => {
+    if (isVoting.value) return;
+
+    isVoting.value = true;
+    // await voteService.castVote(voteId.value, optionId);
+    isVoting.value = false;
+  };
+
   return {
     isLoading,
     vote,
     findVote,
+    castVote,
   };
 }
