@@ -3,6 +3,6 @@ import { VoteController } from "./vote.controller";
 
 export class ControllersFactory {
     static createVoteController(): VoteController {
-        return new VoteController(ActionsFactory.createVote(), ActionsFactory.createFindVote());
+        return new VoteController(ActionsFactory.createVote(), ActionsFactory.createFindVote(), ActionsFactory.createCastVote());
     }
 }

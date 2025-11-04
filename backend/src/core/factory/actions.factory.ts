@@ -1,3 +1,4 @@
+import { CastVote } from "../actions/castVote";
 import { CreateVote } from "../actions/createVote";
 import { FindVote } from "../actions/findVote";
 import { RepositoriesFactory } from "./repositories.factory";
@@ -10,5 +11,9 @@ export class ActionsFactory {
 
     static createFindVote() {
         return new FindVote(RepositoriesFactory.getVotesRepository());
+    }
+
+    static createCastVote() {
+        return new CastVote(RepositoriesFactory.getVotesRepository());
     }
 }

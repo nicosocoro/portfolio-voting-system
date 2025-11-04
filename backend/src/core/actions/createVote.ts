@@ -43,12 +43,12 @@ export class CreateVote {
 
         const voteOptions = params.options.map((option, order) => {
             const id = new Id(order.toString());
-            return new VoteOption(id, option, order);
+            const votesCount = 0;
+            return new VoteOption(id, option, order, votesCount);
         });
 
         const creationDate = this.clock.now();
-        const vote = new Vote(id, params.title, voteOptions, creationDate, params.endDate);
-        return vote;
+        return new Vote(id, params.title, voteOptions, creationDate, params.endDate);
     }
 }
 

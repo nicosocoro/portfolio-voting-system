@@ -7,3 +7,9 @@ export const CreateVoteSchema = {
     endDateInMillis: Type.Number({ minimum: 0 }), // Unix timestamp in milliseconds
   }),
 };
+
+export const CastVoteSchema = {
+  body: Type.Object({
+    optionId: Type.String(),
+  }),
+};

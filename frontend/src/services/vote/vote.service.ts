@@ -11,10 +11,15 @@ export const voteService = {
     async findVote(id: string): Promise<Vote | null> {
         const voteJson = await _find(id); // TODO: Cache
         return _toDomain(voteJson);
+    },
+
+    async castVote(voteId: string, optionId: string): Promise<Vote> {
+        const voteJson = await axios.post(`http://localhost:3000/api/votes/${voteId}/cast`, { optionId: optionId }); // TODO: Cache
+        return _toDomain(voteJson.data);
     }
 }
 
-function _toDomain(voteJson: any): Vote | PromiseLike<Vote> {
+function _toDomain(voteJson: any): Vote {
     return new Vote(voteJson.id, voteJson.title, voteJson.options, new Date(voteJson.endDateInMillis));
 }
 

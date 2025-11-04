@@ -12,4 +12,13 @@ export class InMemoryVotesRepository implements VotesRepository {
     async findBy(voteId: Id): Promise<Vote | null> {
         return this.votes.find(v => v.id.getId() === voteId.getId()) || null;
     }
+
+    async update(vote: Vote): Promise<void> {
+        const index = this.votes.findIndex(v => v.id.getId() === vote.id.getId());
+        if (index === -1) {
+            throw new Error("Vote not found");
+        }
+        this.votes[index] = vote;
+        return Promise.resolve();
+    }
 }
